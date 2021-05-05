@@ -39,22 +39,22 @@ MAX_SEQ_LEN = 128
 PAD_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.pad_token)
 UNK_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.unk_token)
 # Fields
-text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=True, include_lengths=False, batch_first=True,
+text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=False, include_lengths=False, batch_first=True,
                 fix_length=MAX_SEQ_LEN, pad_token=PAD_INDEX, unk_token=UNK_INDEX)
 label_field = Field(sequential=False, use_vocab=False, batch_first=True, dtype=torch.int)
-fields = [('text', text_field), ('novel', label_field)]
-fields = [('text', text_field), ('label', label_field), ('novel', label_field), ('pred', label_field)]
+fields_train = [('text', text_field), ('novel', None)]
+fields_test = [('text', text_field), ('label', None), ('novel', None), ('pred', None)]
 train = TabularDataset(
     path = data_train_csv_path,
     format = 'csv',
     skip_header = True,
-    fields = fields
+    fields = fields_train
 )
 test = TabularDataset(
     path = data_need_detected_path,
     format = 'csv',
     skip_header = True,
-    fields = fields
+    fields = fields_test
 )
 
 train_iter = Iterator(train, batch_size=1, device=device, sort=False, sort_within_batch=False, repeat=False, shuffle=False)
