@@ -50,6 +50,7 @@ data_need['novel'] = 0
 data_need['text'] = data_need['text'].apply(trim_string)
 
 data_novel = pd.read_excel(data_novel_path, header=None)
+data_novel.rename(columns={0: 'text'}, inplace=True)
 data_novel['label'] = 1
 data_novel['novel'] = 1
 
