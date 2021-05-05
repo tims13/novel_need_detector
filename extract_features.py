@@ -1,3 +1,4 @@
+from operator import index
 import numpy as np
 import pandas as pd
 import torch
@@ -22,7 +23,7 @@ data_need_detected_path = data_folder + 'need_detected.csv'
 data_need_results = pd.read_csv(data_need_results_path, index_col=0)
 data_need_detected = data_need_results[data_need_results['pred'] == 1]
 data_need_detected = data_need_detected.reset_index(drop=True)
-data_need_detected.to_csv(data_need_detected_path)
+data_need_detected.to_csv(data_need_detected_path, index=False)
 
 # process the simple need
 data_need_simple = pd.read_csv(data_need_simple_path)
