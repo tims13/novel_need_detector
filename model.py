@@ -13,7 +13,7 @@ class BERT(nn.Module):
 
 class BERT_feature(nn.Module):
     def __init__(self, feature_len):
-        super(BERT, self).__init__()
+        super(BERT_feature, self).__init__()
         options_name = "bert-base-uncased"
         config = BertConfig.from_pretrained(options_name)
         self.encoder = BertModel.from_pretrained(options_name, config=config)
