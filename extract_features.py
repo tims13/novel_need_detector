@@ -33,7 +33,7 @@ MAX_SEQ_LEN = 128
 PAD_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.pad_token)
 UNK_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.unk_token)
 # Fields
-text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=False, include_lengths=False, batch_first=True,
+text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=True, include_lengths=False, batch_first=True,
                 fix_length=MAX_SEQ_LEN, pad_token=PAD_INDEX, unk_token=UNK_INDEX)
 # label_field = Field(sequential=False, use_vocab=False, batch_first=True, dtype=torch.int)
 # fields = [('text', text_field), ('label', label_field)]
