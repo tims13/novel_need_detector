@@ -36,22 +36,22 @@ data_pos['text'] = data_pos['text'].apply(trim_string)
 
 data_neg = pd.read_csv(data_neg_csv_path)
 data_neg['label'] = 0
-data_pos['novel'] = 0
+data_neg['novel'] = 0
 data_neg['text'] = data_neg['text'].apply(trim_string)
 
 data_irre = pd.read_csv(data_irre_csv_path)
 data_irre['label'] = 0
-data_pos['novel'] = 0
+data_irre['novel'] = 0
 data_irre['text'] = data_irre['text'].apply(trim_string)
 
 data_need = pd.read_csv(data_need_csv_path, index_col=0)
 data_need['label'] = 1
-data_pos['novel'] = 0
+data_need['novel'] = 0
 data_need['text'] = data_need['text'].apply(trim_string)
 
 data_novel = pd.read_excel(data_novel_path, header=None)
 data_novel['label'] = 1
-data_pos['novel'] = 1
+data_novel['novel'] = 1
 
 # Train - Test
 df_pos_full_train, df_pos_test = train_test_split(data_pos, train_size = train_test_ratio, random_state=1)
