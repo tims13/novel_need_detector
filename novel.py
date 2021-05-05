@@ -17,10 +17,11 @@ def evaluate_novel(c, model, train_features, test_features, y_true, name):
     print('PRECISION:' + str(prec_score))
     return y_pred
 
-des_path = 'data/'
-data_need_detected_path = des_path + 'test.csv'
-data_np_path = des_path + 'train_test'
-data_result_csv_path = des_path + 'novel_results.csv'
+data_folder = 'data/'
+des_folder = 'record/'
+data_need_detected_path = data_folder + 'need_detected.csv'
+data_np_path = data_folder + 'train_test'
+data_result_csv_path = data_folder + 'novel_results.csv'
 
 data_need_detected = pd.read_csv(data_need_detected_path)
 y_true = data_need_detected['novel']
@@ -30,8 +31,8 @@ data = np.load(data_np_path + '.npz')
 train = data['train']
 test = data['test']
 
-print(train.shape)
-print(test.shape)
+print('Train: ' + str(train.shape))
+print('Test: ' + str(test.shape))
 
 list_c = np.linspace(0.06,0.3,13,endpoint=True)
 print('LOF Training...')
