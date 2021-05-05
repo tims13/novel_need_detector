@@ -61,6 +61,7 @@ print("Computing deep features...")
 train_features = []
 for x in tqdm(train_iter):
     text = x.text.type(torch.LongTensor)
+    print('train-text:'+ str(text))
     text = text.to(device)
     feature = model(text)
     train_features.append(feature.detach().cpu().numpy())
@@ -70,6 +71,7 @@ print(train_features.shape)
 test_features = []
 for x in tqdm(test_iter):
     text = x.text.type(torch.LongTensor)
+    print('test-text:'+ str(text))
     text = text.to(device)
     feature = model(text)
     test_features.append(feature.detach().cpu().numpy())

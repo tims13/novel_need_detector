@@ -12,7 +12,8 @@ def evaluate_novel(c, model, train_features, test_features, y_true, name):
     y_pred[y_pred == -1] = 1
     rec_score = recall_score(y_true, y_pred)
     prec_score = precision_score(y_true, y_pred)
-    print(name + str(c))
+    print('-------------------------------')
+    print(name + ','+ str(c))
     print('RECALL:' + str(rec_score))
     print('PRECISION:' + str(prec_score))
     return y_pred
@@ -21,7 +22,7 @@ data_folder = 'data/'
 des_folder = 'record/'
 data_need_detected_path = data_folder + 'need_detected.csv'
 data_np_path = data_folder + 'train_test'
-data_result_csv_path = data_folder + 'novel_results.csv'
+data_result_csv_path = des_folder + 'novel_results.csv'
 
 data_need_detected = pd.read_csv(data_need_detected_path)
 y_true = data_need_detected['novel']
@@ -52,4 +53,4 @@ model = OneClassSVM(gamma='auto')
 y_pred = evaluate_novel(c, model, train, test, y_true, 'OneClass-SVM')
 data_need_detected['SVM,c=' + str(c)] = y_pred
 
-data_need_detected.to_csv(data_result_csv_path, index=False)
+data_need_detected.to_csv(data_result_csv_path)
