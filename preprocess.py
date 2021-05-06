@@ -4,17 +4,7 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from utils import trim_string, sentence_token_nltk
-
-des_path = 'data/'
-data_sentence_path = des_path + 'annotation_sentence.xlsx'
-data_pos_csv_path = des_path + 'data_pos.csv'
-data_neg_csv_path = des_path + 'data_neg.csv'
-data_irre_csv_path = des_path + 'data_irre.csv'
-data_need_csv_path = des_path + 'need_all_sentence.csv'
-data_novel_path = des_path + 'novel_sentence.xlsx'
-
-train_test_ratio = 0.80
-train_valid_ratio = 0.80
+from config import *
 
 data_paths = [
     data_pos_csv_path,
@@ -74,8 +64,8 @@ print('need:', str(data_need.shape[0]))
 print('non-need:', str(data_pos.shape[0] + data_neg.shape[0] + data_irre.shape[0]))
 print('train-valid-test', str(df_train.shape), str(df_valid.shape), str(df_test.shape))
 
-df_train.to_csv(des_path + 'train.csv', index=False)
-df_valid.to_csv(des_path + 'valid.csv', index=False)
-df_test.to_csv(des_path + 'test.csv', index=False)
+df_train.to_csv(data_folder + 'train.csv', index=False)
+df_valid.to_csv(data_folder + 'valid.csv', index=False)
+df_test.to_csv(data_folder + 'test.csv', index=False)
 
 print("Preprocess finished")

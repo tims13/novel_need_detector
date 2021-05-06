@@ -8,16 +8,7 @@ from torchtext.data import Iterator
 from tqdm import tqdm
 from transformers import BertTokenizer
 from model import BERT_feature
-
-feature_len = 64
-
-des_folder = 'record/'
-data_folder = 'data/'
-data_np_path = data_folder + 'train_test'
-data_train_csv_path = data_folder + 'train_novel.csv'
-data_need_simple_path = data_folder + 'need_simple_sentence.csv'
-data_need_results_path = des_folder + 'need_results.csv'
-data_need_detected_path = data_folder + 'need_detected.csv'
+from config import *
 
 # obtain test data - the need data detected
 data_need_results = pd.read_csv(data_need_results_path, index_col=0)

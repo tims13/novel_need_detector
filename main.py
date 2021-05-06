@@ -5,10 +5,8 @@ from data_loader import load_data
 from train import train
 import matplotlib.pyplot as plt
 from utils import load_metrics, load_checkpoint
-from evaluate import evaluate, evaluate_novelty
-
-des_folder = 'record/'
-num_epochs = 10
+from evaluate import evaluate
+from config import *
 
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(device)
