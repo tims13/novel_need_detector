@@ -16,11 +16,6 @@ data_need_detected = data_need_results[data_need_results['pred'] == 1]
 data_need_detected = data_need_detected.reset_index(drop=True)
 data_need_detected.to_csv(data_need_detected_path, index=False)
 
-# process the simple need
-data_need_simple = pd.read_csv(data_need_simple_path)
-data_need_simple['novel'] = 0
-data_need_simple.to_csv(data_train_csv_path, index=False)
-
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 print(device)
 
@@ -34,10 +29,10 @@ UNK_INDEX = tokenizer.convert_tokens_to_ids(tokenizer.unk_token)
 text_field = Field(use_vocab=False, tokenize=tokenizer.encode, lower=False, include_lengths=False, batch_first=True,
                 fix_length=MAX_SEQ_LEN, pad_token=PAD_INDEX, unk_token=UNK_INDEX)
 label_field = Field(sequential=False, use_vocab=False, batch_first=True, dtype=torch.int)
-fields_train = [('text', text_field), ('novel', None)]
+fields_train = [('text', text_field), ('label', None), ('novel', None)]
 fields_test = [('text', text_field), ('label', None), ('novel', None), ('pred', None)]
 train = TabularDataset(
-    path = data_train_csv_path,
+    path = data_novel_train_path,
     format = 'csv',
     skip_header = True,
     fields = fields_train
