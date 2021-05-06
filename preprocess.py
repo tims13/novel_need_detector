@@ -78,6 +78,6 @@ df_need_simple_train, df_need_simple_test = train_test_split(data_need_simple, t
 df_novel_test = pd.concat([df_pos_test, df_neg_test, df_irre_test, df_need_simple_test, data_novel], ignore_index=True, sort=False)
 print('novel test:', str(df_novel_test.shape))
 print('novel train:', str(df_need_simple_train.shape))
-df_novel_test.to_csv(data_novel_test_path)
-df_need_simple_train.to_csv(data_novel_train_path)
+df_novel_test.to_csv(data_novel_test_path, index=False)
+df_need_simple_train.to_csv(data_novel_train_path, index=False)
 print("Preprocess finished")
