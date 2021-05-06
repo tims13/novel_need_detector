@@ -1,6 +1,7 @@
 import torch
 from torchtext.data import Field, TabularDataset, BucketIterator, Iterator
 from transformers import BertTokenizer, BertForSequenceClassification
+from config import *
 
 def load_data(device, source_folder = 'data'):
     print("load_data - device:", device)
@@ -21,10 +22,16 @@ def load_data(device, source_folder = 'data'):
     # TabularDataset
     train, valid, test = TabularDataset.splits(path=source_folder, train='train.csv', validation='valid.csv',
                                             test='test.csv', format='CSV', fields=fields, skip_header=True)
+    novel_test = TabularDataset(
+    path = data_novel_test_path,
+    format = 'csv',
+    skip_header = True,
+    fields = fields)
     # Iterators
     train_iter = BucketIterator(train, batch_size=16, sort_key=lambda x: len(x.text),
                                 device=device, train=True, sort=True, sort_within_batch=True)
     valid_iter = BucketIterator(valid, batch_size=16, sort_key=lambda x: len(x.text),
                                 device=device, train=True, sort=True, sort_within_batch=True)
     test_iter = Iterator(test, batch_size=16, device=device, train=False, shuffle=False, sort=False)
-    return train_iter, valid_iter, test_iter
+    novel_test_iter = Iterator(novel_test, batch_size=16, device=device, train=False, shuffle=False, sort=False)
+    return train_iter, valid_iter, test_iter, novel_test_iter

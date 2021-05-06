@@ -1,8 +1,11 @@
+# for classifier
 num_epochs = 10
-feature_len = 64
-train_test_ratio = 0.90
+train_test_ratio = 0.80
 train_valid_ratio = 0.80
-
+# for novelty
+feature_len = 64
+novel_test_num = 70
+# folders
 data_folder = 'data/'
 des_folder = 'record/'
 
@@ -18,6 +21,8 @@ data_irre_csv_path = data_folder + 'data_irre.csv'
 data_np_path = data_folder + 'train_test'
 data_train_csv_path = data_folder + 'train_novel.csv'
 data_need_detected_path = data_folder + 'need_detected.csv'
+data_novel_test_path = data_folder + 'novel_test.csv'
+data_novel_train_path = data_folder + 'novel_train.csv'
 # results
 data_need_results_path = des_folder + 'need_results.csv'
-data_result_csv_path = des_folder + 'need_novel.csv'
+data_result_csv_path = des_folder + 'novel_results.csv'

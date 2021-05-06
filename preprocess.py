@@ -1,9 +1,8 @@
 from operator import index
-import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from utils import trim_string, sentence_token_nltk
+from utils import trim_string
 from config import *
 
 data_paths = [
@@ -43,7 +42,9 @@ data_novel = pd.read_excel(data_novel_path, header=None)
 data_novel.rename(columns={0: 'text'}, inplace=True)
 data_novel['label'] = 1
 data_novel['novel'] = 1
+data_novel['text'] = data_novel['text'].apply(trim_string)
 
+# obtain Train-Test-Valid data for classifier
 # Train - Test
 df_pos_full_train, df_pos_test = train_test_split(data_pos, train_size = train_test_ratio, random_state=1)
 df_neg_full_train, df_neg_test = train_test_split(data_neg, train_size = train_test_ratio, random_state=1)
@@ -58,7 +59,7 @@ df_need_train, df_need_valid = train_test_split(df_need_full_train, train_size =
 
 df_train = pd.concat([df_pos_train, df_neg_train, df_irre_train, df_need_train], ignore_index=True, sort=False)
 df_valid = pd.concat([df_pos_valid, df_neg_valid, df_irre_valid, df_need_valid], ignore_index=True, sort=False)
-df_test = pd.concat([df_pos_test, df_neg_test, df_irre_test, df_need_test, data_novel], ignore_index=True, sort=False)
+df_test = pd.concat([df_pos_test, df_neg_test, df_irre_test, df_need_test], ignore_index=True, sort=False)
 
 print('need:', str(data_need.shape[0]))
 print('non-need:', str(data_pos.shape[0] + data_neg.shape[0] + data_irre.shape[0]))
@@ -68,4 +69,15 @@ df_train.to_csv(data_folder + 'train.csv', index=False)
 df_valid.to_csv(data_folder + 'valid.csv', index=False)
 df_test.to_csv(data_folder + 'test.csv', index=False)
 
+# obtain novel test data for the whole process
+data_need_simple = pd.read_csv(data_need_simple_path)
+data_need_simple['label'] = 1
+data_need_simple['novel'] = 0
+data_need_simple['text'] = data_need_simple['text'].apply(trim_string)
+df_need_simple_train, df_need_simple_test = train_test_split(data_need_simple, test_size = novel_test_num, random_state=1)
+df_novel_test = pd.concat([df_pos_test, df_neg_test, df_irre_test, df_need_simple_test, data_novel], ignore_index=True, sort=False)
+print('novel test:', str(df_novel_test.shape))
+print('novel train:', str(df_need_simple_train.shape))
+df_novel_test.to_csv(data_novel_test_path)
+df_need_simple_train.to_csv(data_novel_train_path)
 print("Preprocess finished")
