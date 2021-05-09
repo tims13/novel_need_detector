@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.neighbors import LocalOutlierFactor
 from sklearn.ensemble import IsolationForest
 from sklearn.svm import OneClassSVM
-from sklearn.metrics import recall_score, precision_score
+from sklearn.metrics import recall_score, precision_score, accuracy_score
 from config import *
 
 def evaluate_novel(c, model, train_features, test_features, y_true, name):
@@ -13,10 +13,12 @@ def evaluate_novel(c, model, train_features, test_features, y_true, name):
     y_pred[y_pred == -1] = 1
     rec_score = recall_score(y_true, y_pred)
     prec_score = precision_score(y_true, y_pred)
+    acc_score = accuracy_score(y_true, y_pred)
     print('-------------------------------')
     print(name + ','+ str(c))
     print('RECALL:' + str(rec_score))
     print('PRECISION:' + str(prec_score))
+    print('ACCURACY:' + str(acc_score))
     return y_pred
 
 data_need_detected = pd.read_csv(data_need_detected_path)
